@@ -1,19 +1,19 @@
 <script setup>
 import { ref } from "vue";
+import { RouterLink } from "vue-router";
 import Sidebar from "primevue/sidebar";
 import Menubar from "primevue/menubar";
 import Button from "primevue/button";
-import { RouterLink } from "vue-router";
+import Toast from "primevue/toast";
 
 const visible = ref(false);
 </script>
 
 <template>
   <div>
-    <Menubar>
+    <Menubar :pt="{ root: { class: 'rounded-none' } }">
       <template #start>
         <Button icon="pi pi-bars" @click="visible = true" />
-
         <!-- <svg
           width="35"
           height="40"
@@ -70,9 +70,8 @@ const visible = ref(false);
         <span>Network Alarm System</span>
       </template>
     </Menubar>
-    <div>
-      <Sidebar v-model:visible="visible" header="Sidebar">
-        <!-- <template #container="{ closeCallback }">
+    <Sidebar v-model:visible="visible" header="Sidebar">
+      <!-- <template #container="{ closeCallback }">
           <div class="flex flex-column h-full">
             <ul class="list-none p-0 m-0 overflow-hidden">
               <li>
@@ -96,13 +95,15 @@ const visible = ref(false);
             </ul>
           </div>
         </template> -->
-        <div>
-          <RouterLink to="/">Home</RouterLink>
-        </div>
-        <div>
-          <RouterLink to="/list">Network list</RouterLink>
-        </div>
-      </Sidebar>
+      <div>
+        <RouterLink to="/">Home</RouterLink>
+      </div>
+      <div>
+        <RouterLink to="/list">Network list</RouterLink>
+      </div>
+    </Sidebar>
+    <div>
+      <Toast />
       <slot />
     </div>
   </div>
