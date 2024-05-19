@@ -54,10 +54,20 @@ const testData = [
             "Count: " + Math.floor(Math.random() * 100)
           }}</span>
           <router-link :to="{ name: 'list-view', params: { type_id: i } }">
-            <Button outlined icon="pi pi-list" class="p-1 text-xl" />
+            <Button
+              outlined
+              icon="pi pi-list"
+              class="p-1 text-xl"
+              v-tooltip.top="{ value: 'View List', showDelay: 500 }"
+            />
           </router-link>
           <router-link :to="{ name: 'chart-view', params: { id: i } }">
-            <Button outlined icon="pi pi-chart-line" class="p-1 text-xl" />
+            <Button
+              outlined
+              icon="pi pi-chart-line"
+              class="p-1 text-xl"
+              v-tooltip.top="{ value: 'Chart', showDelay: 500 }"
+            />
           </router-link>
         </div>
       </li>

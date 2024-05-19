@@ -1,24 +1,21 @@
 <script setup>
+import { ref, onMounted, computed } from "vue";
+import { useToast } from "primevue/usetoast";
+
 import MainLayout from "../../layout/MainLayout.vue";
 import Chart from "primevue/chart";
 import Button from "primevue/button";
 import Dialog from "primevue/dialog";
 import InputNumber from "primevue/inputnumber";
-import { ref, onMounted } from "vue";
-import { useToast } from "primevue/usetoast";
+
 const toast = useToast();
 
-onMounted(() => {
-  chartData.value = setChartData();
-  chartOptions.value = setChartOptions();
-});
+onMounted(() => {});
 
 const visible = ref(false);
-const chartData = ref();
-const chartOptions = ref();
 const borderLine = ref();
 
-const setChartData = () => {
+const getChartData = computed(() => {
   const documentStyle = getComputedStyle(document.documentElement);
 
   return {
@@ -40,26 +37,20 @@ const setChartData = () => {
       {
         label: "First Dataset",
         data: [65, 59, 80, 81, 56, 55, 85, 81, 56, 55, 85, 310],
-        fill: false,
+        fill: true,
         borderColor: documentStyle.getPropertyValue("--cyan-500"),
-        tension: 0.4,
       },
       {
-        data: [
-          {
-            x: "February",
-            y: 100,
-          },
-        ],
         label: "Alarm",
-        // steppedLine: true,
-        backgroundColor: "#cd2026",
-        type: "bubble",
+        data: new Array(15).fill(borderLine.value),
+        fill: false,
+        borderColor: "red",
       },
     ],
   };
-};
-const setChartOptions = () => {
+});
+
+const getChartOptions = computed(() => {
   const documentStyle = getComputedStyle(document.documentElement);
   const textColor = documentStyle.getPropertyValue("--text-color");
   const textColorSecondary = documentStyle.getPropertyValue(
@@ -96,16 +87,18 @@ const setChartOptions = () => {
       },
     },
   };
-};
+});
+
 const setAlarm = () => {
   visible.value = false;
-  console.log(typeof borderLine.value);
-  toast.add({
-    severity: "success",
-    summary: "Alarm has been set",
-    detail: `Border for alarm is ${borderLine.value}`,
-    life: 3000,
-  });
+  if (borderLine.value) {
+    toast.add({
+      severity: "success",
+      summary: "Alarm has been set",
+      detail: `Border for alarm is ${borderLine.value}`,
+      life: 3000,
+    });
+  }
 };
 </script>
 
@@ -117,8 +110,8 @@ const setAlarm = () => {
       </h1>
       <Chart
         type="line"
-        :data="chartData"
-        :options="chartOptions"
+        :data="getChartData"
+        :options="getChartOptions"
         class="h-64"
       />
       <!-- <h2 class="text-2xl font-bold">Set Alarm:</h2> -->

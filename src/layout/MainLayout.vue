@@ -13,7 +13,15 @@ const visible = ref(false);
   <div>
     <Menubar :pt="{ root: { class: 'rounded-none' } }">
       <template #start>
-        <Button icon="pi pi-bars" @click="visible = true" />
+        <div class="flex items-center gap-2">
+          <Button icon="pi pi-bars" @click="visible = true" />
+          <slot name="header"
+            ><h1 class="text-2xl font-semibold text-gray-900">
+              5D Monitoring
+            </h1></slot
+          >
+        </div>
+
         <!-- <svg
           width="35"
           height="40"
@@ -67,40 +75,52 @@ const visible = ref(false);
             shape="circle"
           />
         </div> -->
-        <span>Network Alarm System</span>
+        <a href="https://t.me/azercell_5d_bot" target="_blank" rel="noopener">
+          <Button outlined>Network Alarm System</Button>
+        </a>
       </template>
     </Menubar>
     <Sidebar v-model:visible="visible" header="Sidebar">
-      <!-- <template #container="{ closeCallback }">
-          <div class="flex flex-column h-full">
+      <template #container="{ closeCallback }">
+        <div class="flex flex-col h-full">
+          <div class="flex items-center justify-between px-4 pt-4 shrink-0">
+            <span class="font-semibold text-2xl text-primary"
+              >5D Monitoring</span
+            >
+            <span>
+              <Button
+                type="button"
+                @click="closeCallback"
+                icon="pi pi-times"
+                rounded
+                outlined
+              ></Button>
+            </span>
+          </div>
+          <div class="overflow-y-auto mt-4">
             <ul class="list-none p-0 m-0 overflow-hidden">
-              <li>
-                <a
-                  v-ripple
-                  class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+              <li class="hover:bg-gray-100">
+                <RouterLink
+                  to="/"
+                  class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
                 >
                   <i class="pi pi-home mr-2"></i>
-                  <span class="font-medium">Dashboard</span>
-                </a>
+                  <span class="font-medium">Home</span>
+                </RouterLink>
               </li>
-              <li>
-                <a
-                  v-ripple
-                  class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+              <li class="hover:bg-gray-100">
+                <RouterLink
+                  to="/list"
+                  class="flex items-center cursor-pointer p-3 rounded-md text-surface-700 dark:text-surface-0/80 hover:bg-surface-100 dark:hover:bg-surface-700 duration-200 transition-colors"
                 >
-                  <i class="pi pi-bookmark mr-2"></i>
-                  <span class="font-medium">Bookmarks</span>
-                </a>
+                  <i class="pi pi-globe mr-2"></i>
+                  <span class="font-medium">Anomaly list</span>
+                </RouterLink>
               </li>
             </ul>
           </div>
-        </template> -->
-      <div>
-        <RouterLink to="/">Home</RouterLink>
-      </div>
-      <div>
-        <RouterLink to="/list">Network list</RouterLink>
-      </div>
+        </div>
+      </template>
     </Sidebar>
     <div>
       <Toast />
