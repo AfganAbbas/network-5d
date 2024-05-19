@@ -8,30 +8,34 @@ const testData = [
   {
     Type: "Equipment Failure Alarm",
     Port: "1234",
+    Count: 23,
     IP: "10.15.15.1",
     Date: "2024-05-13 10:09:23",
     Receiver: "5",
     Sender: "4",
   },
   {
-    Type: "Equipment Failure Alarm",
+    Type: "Congestion Error",
     Port: "1234",
+    Count: 11,
     IP: "10.15.15.1",
     Date: "2024-05-13 10:09:23",
     Receiver: "5",
     Sender: "4",
   },
   {
-    Type: "Equipment Failure Alarm",
+    Type: "Syncronization of Alarms",
     Port: "1234",
+    Count: 41,
     IP: "10.15.15.1",
     Date: "2024-05-13 10:09:23",
     Receiver: "5",
     Sender: "4",
   },
   {
-    Type: "Equipment Failure Alarm",
+    Type: "Loss of frame",
     Port: "1234",
+    Count: 81,
     IP: "10.15.15.1",
     Date: "2024-05-13 10:09:23",
     Receiver: "5",
@@ -50,9 +54,7 @@ const testData = [
       >
         <span class="text-md font-semibold">{{ item.Type }}</span>
         <div class="flex items-center gap-2">
-          <span class="">{{
-            "Count: " + Math.floor(Math.random() * 100)
-          }}</span>
+          <span class="">{{ "Count: " + item.Count }}</span>
           <router-link :to="{ name: 'list-view', params: { type_id: i } }">
             <Button
               outlined

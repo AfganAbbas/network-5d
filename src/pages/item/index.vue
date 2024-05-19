@@ -29,7 +29,7 @@ const showDialog = (id) => {
   <MainLayout>
     <template v-slot:header>
       <h1 class="text-md md:text-2xl font-semibold text-primary">
-        Anomaly Name | Count
+        Congestion Error | 11
       </h1>
     </template>
     <div class="p-6 space-y-4" v-if="items.length">
@@ -40,7 +40,12 @@ const showDialog = (id) => {
           :key="i"
         >
           <span class="text-md font-semibold">{{
-            "Ip: " + Math.floor(Math.random() * 100)
+            "Ip: " +
+            `${Math.floor(Math.random() * 100)}.${Math.floor(
+              Math.random() * 100
+            )}.${Math.floor(Math.random() * 100)}.${Math.floor(
+              Math.random() * 100
+            )}`
           }}</span>
           <!-- <div class="flex items-center gap-2">
           <span class="">{{"Date"+}}</span>
@@ -64,15 +69,23 @@ const showDialog = (id) => {
       :header="'More information'"
       :style="{ width: '25rem' }"
     >
-      <span class="p-text-secondary block mb-5">Update your information.</span>
-      <div class="flex align-items-center gap-3 mb-2">
-        <span class="font-semibold w-6rem"
-          >Email: {{ dialog.data.heading }}</span
-        >
-        <span>mail@mail.com</span>
+      <span class="p-text-secondary block mb-5"
+        >Detailed info about current anomaly.</span
+      >
+      <div class="flex align-items-center flex-col gap-3 mb-2">
+        <div>
+          <span class="font-semibold w-6rem">Port:</span> <span>4007</span>
+        </div>
+        <div>
+          <span class="font-semibold w-6rem">Ip:</span> <span>127.1.2.32</span>
+        </div>
+        <div>
+          <span class="font-semibold w-6rem">Type: </span>
+          <span>Congestion Error</span>
+        </div>
       </div>
       <template #footer>
-        <Button label="Close" outlined @click="visible = false" autofocus />
+        <Button label="Close" outlined @click="dialog.show = false" autofocus />
       </template>
     </Dialog>
   </MainLayout>
